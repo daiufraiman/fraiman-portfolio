@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · Portfolio de Daiana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2ECDD; --bg-card:#FBF8F0; --deep:#241B2E; --deep-2:#322542;
+    --ink:#2B2233; --ink-soft:#5B5266; --gold:#B98B3E; --gold-soft:#E4C98B;
+    --lavender:#6F5E82; --line:#DCD3C0; --danger:#A33B2E; --ok:#3E7A52;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Inter',sans-serif; line-height:1.55; padding-bottom:110px;
+  }
+  h1,h2,h3{ font-family:'Fraunces',serif; font-weight:600; margin:0; }
+  header.top{
+    background:var(--deep); color:#F2ECDD; padding:26px 5vw;
+    display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  header.top h1{ font-size:1.4rem; color:#FBF8F0; }
+  header.top a{ color:var(--gold-soft); font-family:'IBM Plex Mono',monospace; font-size:0.75rem; text-decoration:none; }
+  .wrap{ max-width:860px; margin:0 auto; padding:0 5vw; }
+  .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); }
+
+  .panel{
+    background:var(--bg-card); border:1px solid var(--line); border-radius:10px;
+    padding:24px 26px; margin-top:22px;
+  }
+  .panel h2{ font-size:1.15rem; margin-bottom:6px; }
+  .panel .hint{ color:var(--ink-soft); font-size:0.88rem; margin-bottom:16px; }
+
+  label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.03em; color:var(--lavender); margin:14px 0 5px; text-transform:uppercase; }
+  label:first-child{ margin-top:0; }
+  input[type=text], input[type=password], input[type=url], textarea{
+    width:100%; font-family:'Inter',sans-serif; font-size:0.95rem; color:var(--ink);
+    background:#fff; border:1px solid var(--line); border-radius:6px; padding:10px 12px;
+  }
+  textarea{ resize:vertical; min-height:64px; }
+  input:focus, textarea:focus{ outline:2px solid var(--gold); outline-offset:1px; border-color:var(--gold); }
+  .row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .row > div{ flex:1 1 160px; }
+  .checkline{ display:flex; align-items:center; gap:8px; margin-top:14px; font-size:0.88rem; color:var(--ink-soft); }
+  .checkline label{ margin:0; text-transform:none; font-family:'Inter',sans-serif; font-size:0.88rem; color:var(--ink-soft); letter-spacing:0; }
+
+  button{
+    font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.03em;
+    padding:10px 18px; border-radius:100px; border:1px solid var(--line-deep,var(--deep));
+    background:var(--deep); color:#F2ECDD; cursor:pointer;
+  }
+  button.secondary{ background:transparent; color:var(--deep); border-color:var(--line); }
+  button.small{ padding:5px 11px; font-size:0.68rem; }
+  button.danger{ background:transparent; color:var(--danger); border-color:var(--danger); }
+  button:disabled{ opacity:0.45; cursor:not-allowed; }
+  button:hover:not(:disabled){ filter:brightness(1.15); }
+
+  details{ border:1px solid var(--line); border-radius:8px; margin-top:14px; background:#fff; }
+  details summary{
+    cursor:pointer; padding:14px 18px; font-family:'Fraunces',serif; font-weight:600; font-size:1.02rem;
+    list-style:none; display:flex; align-items:center; justify-content:space-between;
+  }
+  details summary::-webkit-details-marker{ display:none; }
+  details summary::after{ content:'+'; font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:1.1rem; }
+  details[open] summary::after{ content:'–'; }
+  details .body{ padding:4px 18px 20px; border-top:1px solid var(--line); }
+
+  .list-row{ display:flex; gap:8px; align-items:flex-start; margin-bottom:8px; }
+  .list-row input, .list-row textarea{ flex:1; }
+  .list-row .rm{ flex:0 0 auto; }
+  .obj-row{ border:1px solid var(--line); border-radius:6px; padding:12px; margin-bottom:10px; background:var(--bg); }
+  .obj-row .row{ margin-bottom:0; }
+  .obj-row .rm-line{ text-align:right; margin-top:8px; }
+
+  .photo-row{ display:flex; gap:14px; border:1px solid var(--line); border-radius:6px; padding:12px; margin-bottom:10px; background:var(--bg); align-items:flex-start; }
+  .photo-row img{ width:96px; height:72px; object-fit:cover; border-radius:5px; flex:0 0 auto; background:#ddd; }
+  .photo-row .fields{ flex:1; }
+  .photo-row input[type=file]{ font-size:0.78rem; margin-top:6px; }
+
+  .savebar{
+    position:fixed; bottom:0; left:0; right:0; z-index:50;
+    background:var(--deep); color:#F2ECDD; padding:14px 5vw;
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    border-top:1px solid var(--line-deep,#4A3D5C);
+  }
+  .savebar .status{ font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--gold-soft); flex:1; min-width:200px; }
+  .savebar .status.err{ color:#E7A99C; }
+  .savebar .status.ok{ color:#B9E4C8; }
+
+  .connect-summary{ font-family:'IBM Plex Mono',monospace; font-size:0.8rem; color:var(--ink-soft); margin-top:10px; }
+  .add-btn{ margin-top:4px; }
+  #formArea{ display:none; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>Admin · Portfolio de Daiana</h1>
+  <a href="index.html" target="_blank" rel="noopener">Ver sitio →</a>
+</header>
+
+<div class="wrap">
+
+  <div class="panel" id="connectPanel">
+    <div class="eyebrow">Paso 1</div>
+    <h2>Conectar con GitHub</h2>
+    <p class="hint">Necesitás un token de acceso personal de GitHub con permiso de escritura solo sobre este repositorio. Se guarda únicamente en este navegador, nunca se envía a ningún otro lado.</p>
+    <div class="row">
+      <div>
+        <label>Usuario u organización de GitHub</label>
+        <input type="text" id="cfgOwner" placeholder="ej: daianafraiman">
+      </div>
+      <div>
+        <label>Nombre del repositorio</label>
+        <input type="text" id="cfgRepo" placeholder="ej: daiana-portfolio">
+      </div>
+      <div>
+        <label>Rama</label>
+        <input type="text" id="cfgBranch" placeholder="main" value="main">
+      </div>
+    </div>
+    <label>Personal Access Token</label>
+    <input type="password" id="cfgToken" placeholder="github_pat_...">
+    <div class="checkline">
+      <input type="checkbox" id="cfgRemember" checked>
+      <label for="cfgRemember">Recordar estos datos en este navegador</label>
+    </div>
+    <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+      <button id="btnConnect">Conectar y cargar contenido</button>
+      <button class="secondary" id="btnHowTo" type="button">¿Cómo creo el token?</button>
+    </div>
+    <div id="connectMsg" class="connect-summary"></div>
+  </div>
+
+  <div id="howToPanel" class="panel" style="display:none;">
+    <div class="eyebrow">Cómo crear el token</div>
+    <h2>Personal Access Token de GitHub</h2>
+    <ol style="color:var(--ink-soft); font-size:0.92rem; padding-left:20px; margin-top:10px;">
+      <li>Andá a github.com → foto de perfil (arriba a la derecha) → <strong>Settings</strong>.</li>
+      <li>En el menú de la izquierda, al final, <strong>Developer settings</strong>.</li>
+      <li><strong>Personal access tokens</strong> → <strong>Fine-grained tokens</strong> → <strong>Generate new token</strong>.</li>
+      <li>Ponele un nombre (ej: "admin-portfolio"). En <strong>Repository access</strong>, elegí <strong>Only select repositories</strong> y seleccioná tu repo del portfolio.</li>
+      <li>En <strong>Permissions</strong> → <strong>Repository permissions</strong>, buscá <strong>Contents</strong> y ponelo en <strong>Read and write</strong>.</li>
+      <li>Generá el token y copialo (empieza con <code>github_pat_</code>). Solo se muestra una vez, pegalo acá arriba.</li>
+    </ol>
+  </div>
+
+  <div id="formArea">
+
+    <details open>
+      <summary>Portada (hero)</summary>
+      <div class="body">
+        <label>Frase de introducción (eyebrow)</label>
+        <input type="text" data-path="hero.eyebrow">
+        <div class="row">
+          <div><label>Nombre</label><input type="text" data-path="hero.nameLine1"></div>
+          <div><label>Apellido</label><input type="text" data-path="hero.nameLine2"></div>
+        </div>
+        <label>Frase principal</label>
+        <textarea data-path="hero.role"></textarea>
+        <label>Foto de portada</label>
+        <div class="photo-row">
+          <img id="heroPhotoPreview" src="images/hero.jpg">
+          <div class="fields">
+            <div style="font-size:0.85rem;color:var(--ink-soft);">Subí una nueva foto para reemplazarla (se ajusta el tamaño automáticamente).</div>
+            <input type="file" accept="image/*" id="heroPhotoInput">
+          </div>
+        </div>
+        <label>Etiquetas (chips debajo de la frase)</label>
+        <div id="heroTagsList"></div>
+        <button class="secondary small add-btn" data-add="hero.tags" data-type="string">+ Agregar etiqueta</button>
+      </div>
+    </details>
+
+    <details>
+      <summary>Sobre mí</summary>
+      <div class="body">
+        <label>Título</label>
+        <textarea data-path="about.heading"></textarea>
+        <label>Párrafos</label>
+        <div id="aboutParasList"></div>
+        <button class="secondary small add-btn" data-add="about.paragraphs" data-type="string">+ Agregar párrafo</button>
+      </div>
+    </details>
+
+    <details>
+      <summary>Formación académica</summary>
+      <div class="body">
+        <div id="educationList"></div>
+        <button class="secondary small add-btn" data-add="timeline.education" data-type="eduExp">+ Agregar formación</button>
+      </div>
+    </details>
+
+    <details>
+      <summary>Trayectoria profesional</summary>
+      <div class="body">
+        <div id="experienceList"></div>
+        <button class="secondary small add-btn" data-add="timeline.experience" data-type="eduExp">+ Agregar experiencia</button>
+      </div>
+    </details>
+
+    <details>
+      <summary>Cómo trabajo (franja del ciclo)</summary>
+      <div class="body">
+        <label>Título</label>
+        <textarea data-path="cycle.heading"></textarea>
+        <label>Párrafo</label>
+        <textarea data-path="cycle.paragraph"></textarea>
+      </div>
+    </details>
+
+    <div id="stagesArea"></div>
+
+    <details>
+      <summary>Cierre y contacto</summary>
+      <div class="body">
+        <label>Título (podés usar &lt;em&gt;palabra&lt;/em&gt; para resaltar una palabra en dorado)</label>
+        <input type="text" data-path="closing.heading">
+        <label>Párrafo</label>
+        <textarea data-path="closing.paragraph"></textarea>
+        <label>Datos de contacto</label>
+        <div id="contactsList"></div>
+        <button class="secondary small add-btn" data-add="closing.contacts" data-type="contact">+ Agregar contacto</button>
+        <label>Texto del pie de página</label>
+        <input type="text" data-path="footer">
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<div class="savebar">
+  <div class="status" id="statusMsg">Conectá tu repositorio para empezar.</div>
+  <div style="display:flex; gap:10px;">
+    <button class="secondary" id="btnReload" disabled>Descartar cambios</button>
+    <button id="btnSave" disabled>Guardar todo en GitHub</button>
+  </div>
+</div>
+
+<script>
+const API = 'https://api.github.com';
+let cfg = null;
+let content = null;
+let contentSha = null;
+let pendingImages = {}; // path -> base64 (no prefix)
+
+// ---------- utils ----------
+function utf8ToB64(str){ return btoa(unescape(encodeURIComponent(str))); }
+function b64ToUtf8(str){ return decodeURIComponent(escape(atob(str.replace(/\n/g,'')))); }
+
+function getByPath(obj, path){
+  return path.split('.').reduce((o,k)=> (o==null?undefined:o[/^\d+$/.test(k)?parseInt(k):k]), obj);
+}
+function setByPath(obj, path, val){
+  const parts = path.split('.');
+  let o = obj;
+  for(let i=0;i<parts.length-1;i++){
+    const k = /^\d+$/.test(parts[i]) ? parseInt(parts[i]) : parts[i];
+    o = o[k];
+  }
+  const lastKey = /^\d+$/.test(parts[parts.length-1]) ? parseInt(parts[parts.length-1]) : parts[parts.length-1];
+  o[lastKey] = val;
+}
+
+function setStatus(msg, type){
+  const el = document.getElementById('statusMsg');
+  el.textContent = msg;
+  el.className = 'status' + (type ? ' '+type : '');
+}
+
+function ghHeaders(){
+  return {
+    'Authorization': 'Bearer ' + cfg.token,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28'
+  };
+}
+function apiPath(path){
+  return path.split('/').map(encodeURIComponent).join('/');
+}
+async function ghGetFile(path){
+  const url = `${API}/repos/${cfg.owner}/${cfg.repo}/contents/${apiPath(path)}?ref=${encodeURIComponent(cfg.branch)}`;
+  const res = await fetch(url, { headers: ghHeaders() });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`No pude leer ${path} (HTTP ${res.status}). Revisá el token y los permisos.`);
+  return res.json();
+}
+async function ghPutFile(path, base64Content, message, sha){
+  const url = `${API}/repos/${cfg.owner}/${cfg.repo}/contents/${apiPath(path)}`;
+  const body = { message, content: base64Content, branch: cfg.branch };
+  if (sha) body.sha = sha;
+  const res = await fetch(url, { method:'PUT', headers: {...ghHeaders(), 'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  if (!res.ok) {
+    const t = await res.text();
+    throw new Error(`No pude guardar ${path} (HTTP ${res.status}). ${t.slice(0,200)}`);
+  }
+  return res.json();
+}
+
+function resizeImageFile(file, maxWidth){
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, maxWidth / img.width);
+        const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        canvas.toBlob(blob=>{
+          const fr = new FileReader();
+          fr.onload = () => resolve({ base64: fr.result.split(',')[1], dataUrl: fr.result });
+          fr.onerror = reject;
+          fr.readAsDataURL(blob);
+        }, 'image/jpeg', 0.82);
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+// ---------- connect & load ----------
+document.getElementById('btnHowTo').addEventListener('click', ()=>{
+  const p = document.getElementById('howToPanel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+});
+
+function loadSavedConfig(){
+  try{
+    const saved = JSON.parse(localStorage.getItem('portfolioAdminCfg') || 'null');
+    if (saved){
+      document.getElementById('cfgOwner').value = saved.owner || '';
+      document.getElementById('cfgRepo').value = saved.repo || '';
+      document.getElementById('cfgBranch').value = saved.branch || 'main';
+      document.getElementById('cfgToken').value = saved.token || '';
+    }
+  }catch(e){}
+}
+loadSavedConfig();
+
+document.getElementById('btnConnect').addEventListener('click', async ()=>{
+  cfg = {
+    owner: document.getElementById('cfgOwner').value.trim(),
+    repo: document.getElementById('cfgRepo').value.trim(),
+    branch: document.getElementById('cfgBranch').value.trim() || 'main',
+    token: document.getElementById('cfgToken').value.trim()
+  };
+  if (!cfg.owner || !cfg.repo || !cfg.token){
+    document.getElementById('connectMsg').textContent = 'Completá usuario, repositorio y token.';
+    return;
+  }
+  if (document.getElementById('cfgRemember').checked){
+    localStorage.setItem('portfolioAdminCfg', JSON.stringify(cfg));
+  } else {
+    localStorage.removeItem('portfolioAdminCfg');
+  }
+  document.getElementById('connectMsg').textContent = 'Conectando...';
+  try{
+    const file = await ghGetFile('content.json');
+    if (!file) throw new Error('No encontré content.json en ese repositorio. Verificá que ya lo subiste ahí.');
+    contentSha = file.sha;
+    content = JSON.parse(b64ToUtf8(file.content));
+    pendingImages = {};
+    document.getElementById('connectMsg').textContent = 'Conectado. Contenido cargado ✓';
+    document.getElementById('formArea').style.display = 'block';
+    document.getElementById('btnSave').disabled = false;
+    document.getElementById('btnReload').disabled = false;
+    setStatus('Contenido cargado. Hacé tus cambios y guardá cuando quieras.');
+    buildForm();
+  }catch(err){
+    document.getElementById('connectMsg').textContent = err.message;
+    setStatus('No se pudo conectar.', 'err');
+  }
+});
+
+document.getElementById('btnReload').addEventListener('click', ()=>{
+  if (confirm('¿Descartar los cambios no guardados y recargar el contenido actual del repositorio?')){
+    document.getElementById('btnConnect').click();
+  }
+});
+
+// ---------- form building ----------
+function bindScalarInputs(){
+  document.querySelectorAll('[data-path]').forEach(el=>{
+    const path = el.getAttribute('data-path');
+    const val = getByPath(content, path);
+    el.value = val == null ? '' : val;
+    el.addEventListener('input', ()=>{
+      setByPath(content, path, el.value);
+    });
+  });
+}
+
+function stringListEditor(containerEl, path, placeholder){
+  function draw(){
+    const arr = getByPath(content, path);
+    containerEl.innerHTML = '';
+    arr.forEach((val, i)=>{
+      const row = document.createElement('div');
+      row.className = 'list-row';
+      row.innerHTML = `<textarea rows="2" placeholder="${placeholder||''}"></textarea><button class="secondary small rm" type="button">×</button>`;
+      const ta = row.querySelector('textarea');
+      ta.value = val;
+      ta.addEventListener('input', ()=>{ arr[i] = ta.value; });
+      row.querySelector('.rm').addEventListener('click', ()=>{ arr.splice(i,1); draw(); });
+      containerEl.appendChild(row);
+    });
+  }
+  draw();
+  return draw;
+}
+
+function objectListEditor(containerEl, path, fields){
+  function draw(){
+    const arr = getByPath(content, path);
+    containerEl.innerHTML = '';
+    arr.forEach((obj, i)=>{
+      const row = document.createElement('div');
+      row.className = 'obj-row';
+      const rowInner = document.createElement('div');
+      rowInner.className = 'row';
+      fields.forEach(f=>{
+        const wrap = document.createElement('div');
+        const lab = document.createElement('label');
+        lab.textContent = f.label;
+        wrap.appendChild(lab);
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.value = obj[f.key] || '';
+        inp.placeholder = f.placeholder || '';
+        inp.addEventListener('input', ()=>{ obj[f.key] = inp.value; });
+        wrap.appendChild(inp);
+        rowInner.appendChild(wrap);
+      });
+      row.appendChild(rowInner);
+      const rmLine = document.createElement('div');
+      rmLine.className = 'rm-line';
+      const rmBtn = document.createElement('button');
+      rmBtn.className = 'danger small';
+      rmBtn.type = 'button';
+      rmBtn.textContent = 'Eliminar';
+      rmBtn.addEventListener('click', ()=>{ arr.splice(i,1); draw(); });
+      rmLine.appendChild(rmBtn);
+      row.appendChild(rmLine);
+      containerEl.appendChild(row);
+    });
+  }
+  draw();
+  return draw;
+}
+
+function photoListEditor(containerEl, stagePath){
+  function draw(){
+    const stage = getByPath(content, stagePath);
+    if (!stage.photos) stage.photos = [];
+    containerEl.innerHTML = '';
+    stage.photos.forEach((photo, i)=>{
+      const row = document.createElement('div');
+      row.className = 'photo-row';
+      row.innerHTML = `
+        <img src="${photo.src}">
+        <div class="fields">
+          <label>Descripción (texto debajo de la foto)</label>
+          <input type="text" class="cap">
+          <label>Texto alternativo (accesibilidad)</label>
+          <input type="text" class="alt">
+          <input type="file" accept="image/*" class="fileInput">
+          <div style="margin-top:8px;"><button class="danger small rm" type="button">Eliminar foto</button></div>
+        </div>`;
+      row.querySelector('img').onerror = function(){ this.style.opacity = 0.3; };
+      const capInp = row.querySelector('.cap');
+      capInp.value = photo.caption || '';
+      capInp.addEventListener('input', ()=>{ photo.caption = capInp.value; });
+      const altInp = row.querySelector('.alt');
+      altInp.value = photo.alt || '';
+      altInp.addEventListener('input', ()=>{ photo.alt = altInp.value; });
+      row.querySelector('.fileInput').addEventListener('change', async (e)=>{
+        const f = e.target.files[0];
+        if (!f) return;
+        const { base64, dataUrl } = await resizeImageFile(f, 900);
+        pendingImages[photo.src] = base64;
+        row.querySelector('img').src = dataUrl;
+        setStatus('Foto lista para subir: ' + photo.src + ' (se guarda al hacer clic en "Guardar todo").');
+      });
+      row.querySelector('.rm').addEventListener('click', ()=>{ stage.photos.splice(i,1); draw(); });
+      containerEl.appendChild(row);
+    });
+  }
+  draw();
+  return draw;
+}
+
+function buildStagesForm(){
+  const area = document.getElementById('stagesArea');
+  area.innerHTML = '';
+  content.stages.forEach((stage, si)=>{
+    const det = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.textContent = `Etapa ${stage.number} · ${stage.title}`;
+    det.appendChild(summary);
+    const body = document.createElement('div');
+    body.className = 'body';
+
+    body.innerHTML = `
+      <label>Nombre corto (aparece en el menú)</label>
+      <input type="text" data-path="stages.${si}.navLabel">
+      <label>Título completo</label>
+      <input type="text" data-path="stages.${si}.title">
+      <label>Frase de introducción</label>
+      <textarea data-path="stages.${si}.sub"></textarea>
+      <label>Lista de tareas / expertise</label>
+      <div class="listArea" id="stageList${si}"></div>
+      <button class="secondary small add-btn" type="button" data-list-add="${si}">+ Agregar línea</button>
+    `;
+    det.appendChild(body);
+    area.appendChild(det);
+
+    stringListEditor(body.querySelector(`#stageList${si}`), `stages.${si}.list`, 'Descripción de la tarea');
+    body.querySelector('[data-list-add]').addEventListener('click', ()=>{
+      stage.list.push('');
+      stringListEditor(body.querySelector(`#stageList${si}`), `stages.${si}.list`, 'Descripción de la tarea');
+    });
+
+    if (stage.highlight){
+      const hl = document.createElement('div');
+      hl.innerHTML = `
+        <label>Dato destacado (número)</label>
+        <input type="text" data-path="stages.${si}.highlight.num">
+        <label>Etiqueta del número</label>
+        <input type="text" data-path="stages.${si}.highlight.label">
+        <label>Texto del dato destacado</label>
+        <textarea data-path="stages.${si}.highlight.text"></textarea>
+        <label>Frase final en negrita</label>
+        <textarea data-path="stages.${si}.highlight.boldText"></textarea>
+      `;
+      body.appendChild(hl);
+    }
+
+    if (stage.note !== undefined){
+      const nt = document.createElement('div');
+      nt.innerHTML = `<label>Nota final (en itálica)</label><textarea data-path="stages.${si}.note"></textarea>`;
+      body.appendChild(nt);
+    }
+
+    if (stage.tools){
+      const tl = document.createElement('div');
+      tl.innerHTML = `<label>Herramientas (chips)</label><div class="listArea" id="stageTools${si}"></div><button class="secondary small add-btn" type="button" id="addTool${si}">+ Agregar herramienta</button>`;
+      body.appendChild(tl);
+      stringListEditor(tl.querySelector(`#stageTools${si}`), `stages.${si}.tools`, 'Nombre de la herramienta');
+      tl.querySelector(`#addTool${si}`).addEventListener('click', ()=>{
+        stage.tools.push('');
+        stringListEditor(tl.querySelector(`#stageTools${si}`), `stages.${si}.tools`, 'Nombre de la herramienta');
+      });
+    }
+
+    if (stage.photos){
+      const ph = document.createElement('div');
+      ph.innerHTML = `<label>Fotos</label><div class="listArea" id="stagePhotos${si}"></div><button class="secondary small add-btn" type="button" id="addPhoto${si}">+ Agregar foto nueva</button>`;
+      body.appendChild(ph);
+      const redraw = photoListEditor(ph.querySelector(`#stagePhotos${si}`), `stages.${si}`);
+      ph.querySelector(`#addPhoto${si}`).addEventListener('click', ()=>{
+        const nextIdx = stage.photos.length + 1;
+        const newPath = `images/${stage.id}-extra-${Date.now()}.jpg`;
+        stage.photos.push({ src: newPath, alt: '', caption: '' });
+        photoListEditor(ph.querySelector(`#stagePhotos${si}`), `stages.${si}`);
+        setStatus('Agregaste un espacio de foto nueva: subí una imagen desde el botón de archivo.');
+      });
+    }
+
+    bindScalarInputs();
+  });
+}
+
+function buildForm(){
+  bindScalarInputs();
+  document.getElementById('heroPhotoPreview').src = content.hero.photo + '?_=' + Date.now();
+  document.getElementById('heroPhotoInput').addEventListener('change', async (e)=>{
+    const f = e.target.files[0];
+    if (!f) return;
+    const { base64, dataUrl } = await resizeImageFile(f, 900);
+    pendingImages[content.hero.photo] = base64;
+    document.getElementById('heroPhotoPreview').src = dataUrl;
+    setStatus('Foto de portada lista para subir (se guarda al hacer clic en "Guardar todo").');
+  });
+
+  stringListEditor(document.getElementById('heroTagsList'), 'hero.tags', 'Etiqueta');
+  stringListEditor(document.getElementById('aboutParasList'), 'about.paragraphs', 'Párrafo');
+  objectListEditor(document.getElementById('educationList'), 'timeline.education',
+    [{key:'date',label:'Año / período'},{key:'role',label:'Curso o título'},{key:'org',label:'Institución'},{key:'link',label:'Link (opcional)'}]);
+  objectListEditor(document.getElementById('experienceList'), 'timeline.experience',
+    [{key:'date',label:'Período'},{key:'role',label:'Puesto'},{key:'org',label:'Empresa'},{key:'link',label:'Link'}]);
+  objectListEditor(document.getElementById('contactsList'), 'closing.contacts',
+    [{key:'label',label:'Texto visible'},{key:'href',label:'Link (mailto:, tel:, https:)'}]);
+
+  buildStagesForm();
+
+  // re-bind add buttons for simple string lists at top level (hero.tags / about.paragraphs)
+  document.querySelectorAll('[data-add]').forEach(btn=>{
+    if (btn.dataset.bound) return;
+    btn.dataset.bound = '1';
+    btn.addEventListener('click', ()=>{
+      const path = btn.getAttribute('data-add');
+      const type = btn.getAttribute('data-type');
+      const arr = getByPath(content, path);
+      if (type === 'string') arr.push('');
+      else if (type === 'eduExp') arr.push({date:'',role:'',org:'',link:''});
+      else if (type === 'contact') arr.push({label:'',href:'',primary:false});
+      buildForm();
+    });
+  });
+}
+
+// ---------- save ----------
+document.getElementById('btnSave').addEventListener('click', async ()=>{
+  const btn = document.getElementById('btnSave');
+  btn.disabled = true;
+  try{
+    setStatus('Guardando contenido...');
+    const jsonStr = JSON.stringify(content, null, 2);
+    const putRes = await ghPutFile('content.json', utf8ToB64(jsonStr), 'Actualizar contenido del portfolio', contentSha);
+    contentSha = putRes.content.sha;
+
+    const imgPaths = Object.keys(pendingImages);
+    for (let i=0; i<imgPaths.length; i++){
+      const path = imgPaths[i];
+      setStatus(`Subiendo foto ${i+1} de ${imgPaths.length}...`);
+      const existing = await ghGetFile(path);
+      await ghPutFile(path, pendingImages[path], 'Actualizar foto: ' + path, existing ? existing.sha : undefined);
+    }
+    pendingImages = {};
+
+    setStatus('Guardado ✓ — el sitio se actualiza solo en 30-60 segundos.', 'ok');
+  }catch(err){
+    setStatus(err.message, 'err');
+  }finally{
+    btn.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>
+
+{
+  "hero": {
+    "eyebrow": "People & Talent · Buenos Aires, Argentina",
+    "nameLine1": "Daiana",
+    "nameLine2": "Fraiman",
+    "role": "Construyo el vínculo entre las personas y el negocio: procesos que retienen, líderes que confían y equipos que encuentran en el trabajo un lugar para crecer.",
+    "tags": ["Talent Acquisition", "Employee Experience", "People Ops", "Performance & Desarrollo"],
+    "photo": "images/hero.jpg",
+    "scrollLabel": "Recorrer"
+  },
+  "about": {
+    "eyebrow": "Sobre mí",
+    "heading": "Creo en el poder de la escucha activa para transformar la manera en que vivimos nuestro trabajo.",
+    "paragraphs": [
+      "Pasamos gran parte de la vida en el trabajo. Mi motor es que ese tiempo valga la pena. Elegí dedicarme a People, porque me motiva que cada persona encuentre un espacio donde sentirse desafiada, donde pueda aprender, dar lo mejor de sí, y también, simplemente, pasarla bien.",
+      "Sostener eso en el tiempo no es solo cuestión de buena voluntad: requiere procesos pensados de punta a punta, presencia constante junto a los líderes, y la capacidad de traducir necesidades de negocio en decisiones, orientadas a las personas.",
+      "Eso es lo que vengo construyendo en cada rol que ocupé, y lo que hoy quiero seguir potenciando."
+    ]
+  },
+  "timeline": {
+    "eyebrow": "Recorrido",
+    "heading": "Formación & experiencia",
+    "educationLabel": "Formación académica",
+    "experienceLabel": "Trayectoria profesional",
+    "education": [
+      { "date": "", "role": "Analista en Relaciones del Trabajo", "org": "Universidad de Buenos Aires (UBA)", "link": "" },
+      { "date": "2026", "role": "AI para RRHH", "org": "RecursosHumanos.com", "link": "" },
+      { "date": "2024", "role": "Project Management Bootcamp", "org": "UCEMA", "link": "" },
+      { "date": "2023", "role": "Certificación NewHR", "org": "ADRHA", "link": "" },
+      { "date": "2023", "role": "Learnability", "org": "UCEMA", "link": "" },
+      { "date": "2022", "role": "Power BI para HR", "org": "Hache Consultora", "link": "" },
+      { "date": "2021", "role": "HR Bootcamp", "org": "Academia Humanos Reales", "link": "" },
+      { "date": "2017 – 2018", "role": "IT Recruiting", "org": "Conexión HR / Capacitarte", "link": "" }
+    ],
+    "experience": [
+      { "date": "Mar 2026 – actualidad", "role": "People & Talent Coordinator", "org": "Tekne", "link": "https://digitaltekne.com" },
+      { "date": "Jun 2024 – Dic 2025", "role": "Talent Manager Specialist & HRBP", "org": "Punto Rojo", "link": "https://puntorojo.com" },
+      { "date": "Jul 2019 – Feb 2024", "role": "Senior HR Coordinator", "org": "Open English Argentina", "link": "https://www.openenglish.com" },
+      { "date": "Jun 2017 – Jul 2019", "role": "HR Analyst & Office Assistant", "org": "Open English Argentina", "link": "https://www.openenglish.com" },
+      { "date": "Jun 2013 – Abr 2017", "role": "Administrativa Nivel Inicial", "org": "Natan Gesang · Escuela Internacional", "link": "https://www.natangesang.edu.ar" },
+      { "date": "Mar 2010 – Dic 2015", "role": "Líder en Educación No Formal", "org": "OHA Macabi", "link": "https://macabi.org.ar" }
+    ]
+  },
+  "cycle": {
+    "eyebrow": "Cómo trabajo",
+    "heading": "El ciclo de vida del colaborador, de punta a punta",
+    "paragraph": "No pienso mi rol, como partes aisladas. Cada etapa habilita a la siguiente, y sostenerlas de forma integral, es lo que me permite acompañar tanto a las personas como al negocio."
+  },
+  "stages": [
+    {
+      "id": "atraccion",
+      "number": "01",
+      "navLabel": "Atracción",
+      "title": "Atracción & Selección",
+      "sub": "Procesos de reclutamiento end-to-end, alineados a las necesidades reales del negocio: no solo a cubrir una vacante.",
+      "list": [
+        "Relevamiento de perfil, entrevistas, oferta e ingreso a onboarding",
+        "Alineación con directores y hiring managers sobre las necesidades reales de cada búsqueda",
+        "IT Recruiting y búsqueda de perfiles técnicos en contextos de alta demanda, perfiles de marketing, publicidad y comunicación",
+        "Gestión de pipeline y ATS (Airtable, ClickUp, Notion)",
+        "Diseño de procesos de selección adaptados al tamaño y etapa de cada equipo"
+      ],
+      "highlight": {
+        "num": "17→60",
+        "label": "personas · Open English",
+        "text": "Construí gran parte del equipo que acompañé durante casi siete años en Open English, en un contexto de alta demanda de talento tech senior. Al día de hoy, muchos siguen ahí.",
+        "boldText": "Ese engagement es, para mí, la métrica que más orgullo me da."
+      }
+    },
+    {
+      "id": "onboarding",
+      "number": "02",
+      "navLabel": "Onboarding",
+      "title": "Onboarding",
+      "sub": "Más de siete años acompañando primeros meses de ilusión y aprendizaje, adaptando la experiencia a entornos presenciales o virtuales.",
+      "list": [
+        "Diseño y liderazgo de procesos de onboarding end-to-end",
+        "Adaptación a equipos remotos y distribuidos (Argentina, Brasil, México)",
+        "Rediseño completo del proceso para sostenerlo 100% remoto durante la pandemia",
+        "Seguimiento cercano en las primeras semanas, integrado con performance y cultura"
+      ]
+    },
+    {
+      "id": "desarrollo",
+      "number": "03",
+      "navLabel": "Desarrollo",
+      "title": "Desarrollo & Performance",
+      "sub": "Evaluar no alcanza si no se traduce en un plan concreto de crecimiento. Diseño el proceso completo: de la pregunta correcta al plan de acción.",
+      "list": [
+        "Diseño de preguntas de evaluación de desempeño atadas a competencias por rol",
+        "Paths de capacitación personalizados según resultados (Crehana)",
+        "Cruce de datos de eNPS para priorizar oportunidades de mejora y refinar el ciclo siguiente",
+        "Evolución de ciclos de evaluación anuales a procesos de feedback continuo",
+        "Acompañamiento a líderes para incorporar una cultura real de feedback"
+      ]
+    },
+    {
+      "id": "cultura",
+      "number": "04",
+      "navLabel": "Cultura",
+      "title": "Cultura, Comunicación & Employee Experience",
+      "sub": "La cultura no se decreta. Se trabaja con comunicación constante y espacios reales de encuentro.",
+      "list": [
+        "Redefinición de espacios de comunicación interna global (Slack, BambooHR, creación de Wiki interna) para equipos locales y globales",
+        "Medición de clima laboral y eNPS",
+        "Organización y participación en eventos, team building y encuentros de equipo",
+        "Iniciativas de engagement y bienestar"
+      ],
+      "photos": [
+        { "src": "images/culture-1.jpg", "alt": "Merchandising y agasajo por los 15 años de Open English", "caption": "Open English · 15 años. Formé parte de la organización del festejo." },
+        { "src": "images/culture-2.jpg", "alt": "Equipo de Punto Rojo en el escenario del SEO Day", "caption": "Punto Rojo · SEO Day. Acompañando al CEO, CMO y directores en la organización del evento." },
+        { "src": "images/culture-3.jpg", "alt": "Equipo de Punto Rojo en Conversion Day", "caption": "Punto Rojo · Conversion Day. Colaboré de cerca con directores en el streaming oficial del evento." },
+        { "src": "images/culture-4.jpg", "alt": "Encuentro de equipo en un asado de Tekne", "caption": "Tekne · asado con el equipo, parte de sostener la cultura y el encuentro en el día a día." }
+      ]
+    },
+    {
+      "id": "cierre",
+      "number": "05",
+      "navLabel": "Transición",
+      "title": "Transición",
+      "sub": "El final de una relación laboral también se acompaña, y es una fuente de información valiosa para todo lo anterior.",
+      "list": [
+        "Acompañamiento de la persona en su salida",
+        "Encuesta de feedback de salida para capturar datos honestos sobre su experiencia",
+        "Apoyo con los próximos pasos para cerrar la relación de la mejor manera posible"
+      ],
+      "note": "El cierre de un vínculo laboral dice tanto de la cultura de una empresa como su comienzo, y aporta información honesta que alimenta decisiones posteriores de atracción, onboarding y desarrollo."
+    },
+    {
+      "id": "operaciones",
+      "number": "06",
+      "navLabel": "People Ops",
+      "title": "People Ops & Systems",
+      "sub": "Lo que sostiene todo lo anterior: sistemas bien administrados, procesos documentados y datos confiables.",
+      "list": [
+        "Administración de BambooHR (Performance, Goals y Time Off)",
+        "Implementación del módulo de Time Off automatizado, reduciendo tiempos operativos",
+        "Gestión de documentación y ATS (Airtable, ClickUp)",
+        "Coordinación de nómina y administración general"
+      ],
+      "tools": ["BambooHR", "ClickUp", "Airtable (ATS)", "Slack", "Power BI", "Google Workspace", "Crehana"],
+      "photos": []
+    }
+  ],
+  "closing": {
+    "eyebrow": "Mirando hacia adelante",
+    "heading": "Sigamos construyendo esto <em>juntos</em>.",
+    "paragraph": "Sostener el employee journey del colaborador me enseñó a entender al mismo tiempo lo que necesitan las personas y lo que necesita el negocio. Ese es el valor que me encantaría seguir aportando, acompañando de cerca a líderes y equipos en mi próximo desafío.",
+    "contacts": [
+      { "label": "✉ daiufrai@gmail.com", "href": "mailto:daiufrai@gmail.com", "primary": true },
+      { "label": "in/dfraiman", "href": "https://www.linkedin.com/in/dfraiman", "primary": false },
+      { "label": "+54 9 11 6747-1934", "href": "tel:+5491167471934", "primary": false }
+    ]
+  },
+  "footer": "Daiana Fraiman · People & Talent Portfolio · Buenos Aires, Argentina · 2026"
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daiana Fraiman · People & Talent Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F2ECDD;
+    --bg-card: #FBF8F0;
+    --deep: #241B2E;
+    --deep-2: #322542;
+    --ink: #2B2233;
+    --ink-soft: #5B5266;
+    --gold: #B98B3E;
+    --gold-soft: #E4C98B;
+    --lavender: #6F5E82;
+    --line: #DCD3C0;
+    --line-deep: #4A3D5C;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:500;
+  }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.01em; }
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(242,236,221,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    transform:translateY(-100%);
+    transition:transform 0.4s ease;
+  }
+  nav.visible{ transform:translateY(0); }
+  .nav-name{ font-family:'Fraunces', serif; font-weight:600; font-size:1rem; color:var(--ink); }
+  .nav-links{ display:flex; gap:28px; }
+  .nav-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink-soft); text-decoration:none;
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+    transition:color 0.2s, border-color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--gold); border-color:var(--gold); }
+  @media (max-width:800px){ .nav-links{ display:none; } }
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100vh;
+    background:radial-gradient(ellipse 120% 90% at 30% 0%, var(--deep-2), var(--deep));
+    color:#F2ECDD;
+    display:flex; align-items:center;
+    padding:14vh 6vw 8vh;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--line-deep) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-deep) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.12;
+    mask-image:radial-gradient(ellipse 80% 60% at 30% 30%, black, transparent);
+  }
+  .hero-inner{
+    display:grid;
+    grid-template-columns:1.3fr 0.9fr;
+    gap:6vw;
+    align-items:center;
+    max-width:1280px;
+    width:100%;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
+  }
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--gold-soft);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:26px;
+    opacity:0;
+    animation:fadeUp 0.8s ease 0.1s forwards;
+  }
+  .hero-eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold-soft); }
+  .hero h1{
+    font-size:clamp(2.6rem, 5.4vw, 4.6rem);
+    line-height:1.02;
+    font-weight:600;
+    color:#FBF8F0;
+    opacity:0;
+    animation:fadeUp 0.8s ease 0.25s forwards;
+  }
+  .hero h1 em{ font-style:italic; font-weight:400; color:var(--gold-soft); }
+  .hero-role{
+    margin-top:20px;
+    font-size:1.15rem;
+    color:#D9CFE4;
+    max-width:46ch;
+    opacity:0;
+    animation:fadeUp 0.8s ease 0.4s forwards;
+  }
+  .hero-tags{
+    margin-top:34px;
+    display:flex; flex-wrap:wrap; gap:10px;
+    opacity:0;
+    animation:fadeUp 0.8s ease 0.55s forwards;
+  }
+  .hero-tags span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem; letter-spacing:0.04em;
+    padding:7px 14px;
+    border:1px solid var(--line-deep);
+    border-radius:100px;
+    color:#C9BEDA;
+  }
+  .hero-photo-wrap{
+    position:relative;
+    opacity:0;
+    animation:fadeUp 0.9s ease 0.35s forwards;
+  }
+  .hero-photo{
+    width:100%;
+    aspect-ratio:0.86;
+    object-fit:cover;
+    border-radius:6px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+    filter:grayscale(15%) contrast(1.02);
+  }
+  .hero-photo-frame{
+    position:absolute; inset:-14px;
+    border:1px solid var(--gold-soft);
+    border-radius:10px;
+    opacity:0.5;
+    pointer-events:none;
+  }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    color:#B7ACC8;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase;
+    z-index:2;
+  }
+  .scroll-cue .line{ width:1px; height:34px; background:linear-gradient(#B7ACC8, transparent); animation:pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+
+  @media (max-width:900px){
+    .hero{ padding-bottom:10vh; }
+    .scroll-cue{ display:none; }
+  }
+  @media (max-width:800px){
+    .hero-inner{ grid-template-columns:1fr; }
+    .hero-photo-wrap{ order:-1; max-width:220px; margin:0 auto; }
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section{ padding:9vh 6vw; }
+  .wrap{ max-width:1120px; margin:0 auto; }
+
+  /* ============ INTRO ============ */
+  .intro{
+    display:grid; grid-template-columns:0.6fr 1fr; gap:6vw;
+    padding-top:12vh;
+  }
+  .intro .eyebrow{ margin-bottom:18px; }
+  .intro h2{ font-size:clamp(1.7rem, 3vw, 2.3rem); line-height:1.2; color:var(--ink); }
+  .intro p{ color:var(--ink-soft); font-size:1.03rem; max-width:58ch; }
+  .intro p + p{ margin-top:16px; }
+  @media (max-width:800px){ .intro{ grid-template-columns:1fr; gap:20px; } }
+
+  /* ============ TIMELINE STRIP ============ */
+  .timeline-section{ background:var(--bg-card); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .timeline-head{ margin-bottom:48px; }
+  .timeline-head h2{ font-size:clamp(1.6rem,2.6vw,2.1rem); margin-top:10px; }
+  .timeline-track{ padding-top:6px; }
+  .timeline-row{
+    display:flex; flex-wrap:wrap;
+    gap:30px 34px;
+  }
+  .t-item{
+    flex:1 1 190px;
+    max-width:230px;
+    border-top:2px solid var(--gold);
+    padding-top:16px;
+  }
+  .t-date-row{ display:flex; align-items:center; gap:7px; margin-bottom:7px; }
+  .t-dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); flex:0 0 auto; }
+  .t-date{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--lavender); letter-spacing:0.03em; }
+  .t-role{ font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; margin-bottom:4px; color:var(--ink); }
+  .t-org{ font-size:0.9rem; color:var(--ink-soft); }
+  .t-item.edu{ border-top-color:var(--lavender); }
+  .t-item.edu .t-dot{ background:var(--lavender); }
+  .t-item.edu .t-role{ color:var(--lavender); }
+
+  .cert-cluster{
+    margin-top:10px;
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .cert-cluster span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    padding:6px 11px;
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:5px;
+    color:var(--ink-soft);
+  }
+  .cert-label{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--lavender); margin-top:40px; margin-bottom:12px; display:block; }
+
+  /* ============ CYCLE INTRO BAND ============ */
+  .cycle-band{
+    background:var(--deep);
+    color:#F2ECDD;
+    text-align:center;
+    padding:10vh 6vw 7vh;
+  }
+  .cycle-band .eyebrow{ color:var(--gold-soft); }
+  .cycle-band h2{ font-size:clamp(1.9rem,3.6vw,2.8rem); margin-top:14px; color:#FBF8F0; max-width:20ch; margin-left:auto; margin-right:auto; }
+  .cycle-band p{ color:#C9BEDA; max-width:58ch; margin:18px auto 0; font-size:1.02rem; }
+  .cycle-nav{
+    display:flex; justify-content:center; flex-wrap:wrap; gap:12px;
+    margin-top:44px;
+  }
+  .cycle-nav a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem; letter-spacing:0.05em;
+    color:#E7DFF2;
+    text-decoration:none;
+    padding:10px 18px;
+    border:1px solid var(--line-deep);
+    border-radius:100px;
+    display:flex; align-items:center; gap:8px;
+    transition:border-color 0.25s, color 0.25s, background 0.25s;
+  }
+  .cycle-nav a .n{ color:var(--gold-soft); }
+  .cycle-nav a:hover, .cycle-nav a:focus-visible{ border-color:var(--gold-soft); color:#fff; background:rgba(233,201,139,0.08); }
+
+  /* ============ THREAD / STAGES ============ */
+  .thread-section{ position:relative; padding-top:10vh; }
+  .thread-line{
+    position:absolute;
+    left:calc(6vw + 27px);
+    top:0; bottom:0;
+    width:2px;
+    background:var(--line);
+    z-index:0;
+  }
+  .thread-line-fill{
+    position:absolute; left:0; top:0; width:100%; height:0%;
+    background:linear-gradient(var(--gold), var(--lavender));
+    transition:height 0.1s linear;
+  }
+  .stage{
+    position:relative;
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:32px;
+    padding:0 0 12vh;
+    max-width:1120px;
+    margin:0 auto;
+  }
+  .stage:last-child{ padding-bottom:4vh; }
+  .stage-node{
+    position:relative; z-index:1;
+    width:56px; height:56px; border-radius:50%;
+    background:var(--bg-card);
+    border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem; color:var(--ink-soft);
+    transition:border-color 0.5s, color 0.5s, background 0.5s, box-shadow 0.5s;
+  }
+  .stage.active .stage-node{
+    border-color:var(--gold);
+    color:var(--gold);
+    background:var(--bg-card);
+    box-shadow:0 0 0 6px rgba(185,139,62,0.12);
+  }
+  .stage-content{ padding-top:2px; }
+  .stage-eyebrow{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .stage h3{ font-size:clamp(1.4rem,2.4vw,1.9rem); color:var(--ink); margin-bottom:16px; }
+  .stage-sub{ color:var(--ink-soft); font-size:1rem; max-width:64ch; margin-bottom:28px; }
+
+  .story-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:22px;}
+  @media (max-width:900px){ .story-grid{ grid-template-columns:1fr; } }
+  .story-card{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:22px 20px;
+  }
+  .story-org{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--lavender); margin-bottom:10px; }
+  .story-card p{ font-size:0.93rem; color:var(--ink); }
+
+  .stage-desc{ color:var(--ink); font-size:1rem; max-width:66ch; margin-bottom:22px; }
+  .stage-list{ list-style:none; margin-bottom:26px; }
+  .stage-list li{
+    position:relative; padding-left:24px; margin-bottom:11px;
+    font-size:0.97rem; color:var(--ink); max-width:64ch;
+  }
+  .stage-list li::before{
+    content:"—"; position:absolute; left:0; top:0;
+    color:var(--gold); font-family:'IBM Plex Mono', monospace;
+  }
+  .stage-note{
+    font-style:italic; color:var(--ink-soft); font-size:0.95rem;
+    max-width:60ch; border-left:2px solid var(--line); padding-left:16px; margin-top:8px;
+  }
+
+  .t-org a{ color:inherit; text-decoration:none; border-bottom:1px dotted var(--ink-soft); transition:color 0.2s, border-color 0.2s; }
+  .t-org a:hover, .t-org a:focus-visible{ color:var(--gold); border-color:var(--gold); }
+
+  .highlight-card{
+    background:linear-gradient(135deg, var(--deep), var(--deep-2));
+    color:#F2ECDD;
+    border-radius:10px;
+    padding:30px 32px;
+    margin-top:8px;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:26px;
+    align-items:center;
+  }
+  @media (max-width:700px){ .highlight-card{ grid-template-columns:1fr; } }
+  .highlight-num{
+    font-family:'Fraunces', serif;
+    font-size:3.2rem;
+    font-weight:600;
+    color:var(--gold-soft);
+    line-height:1;
+    white-space:nowrap;
+  }
+  .highlight-num small{ font-size:1.1rem; font-weight:400; display:block; color:#C9BEDA; margin-top:6px; }
+  .highlight-card p{ font-size:0.98rem; color:#E7DFF2; }
+  .highlight-card p strong{ color:#fff; }
+
+  .photo-placeholder{
+    border:1.5px dashed var(--lavender);
+    border-radius:8px;
+    padding:34px 20px;
+    text-align:center;
+    background:repeating-linear-gradient(135deg, rgba(111,94,130,0.04) 0px, rgba(111,94,130,0.04) 10px, transparent 10px, transparent 20px);
+  }
+  .photo-placeholder .ph-icon{ font-size:1.5rem; margin-bottom:8px; display:block; opacity:0.6;}
+  .photo-placeholder span{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--lavender); letter-spacing:0.03em; }
+  .photo-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:4px;}
+  @media (max-width:700px){ .photo-grid{ grid-template-columns:1fr 1fr; } }
+
+  .photo-card{ border-radius:8px; overflow:hidden; border:1px solid var(--line); background:var(--bg-card); }
+  .photo-card img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+  .photo-card figcaption{ padding:12px 14px; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--ink-soft); letter-spacing:0.02em; line-height:1.5; }
+
+  .tool-row{ display:flex; flex-wrap:wrap; gap:9px; margin-top:20px; }
+  .tool-row span{
+    font-family:'IBM Plex Mono', monospace; font-size:0.7rem;
+    padding:7px 13px; border:1px solid var(--line); border-radius:100px;
+    color:var(--ink-soft); background:var(--bg-card);
+  }
+
+  /* ============ CLOSING ============ */
+  .closing{
+    background:var(--deep);
+    color:#F2ECDD;
+    padding:14vh 6vw 10vh;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .closing::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:linear-gradient(var(--line-deep) 1px, transparent 1px), linear-gradient(90deg, var(--line-deep) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.1;
+    mask-image:radial-gradient(ellipse 70% 70% at 50% 30%, black, transparent);
+  }
+  .closing-inner{ position:relative; z-index:2; max-width:760px; margin:0 auto; }
+  .closing .eyebrow{ color:var(--gold-soft); }
+  .closing h2{ font-size:clamp(1.9rem,4vw,2.9rem); margin-top:18px; line-height:1.15; color:#FBF8F0; }
+  .closing h2 em{ font-style:italic; font-weight:400; color:var(--gold-soft); }
+  .closing p{ color:#C9BEDA; margin-top:22px; font-size:1.05rem; max-width:58ch; margin-left:auto; margin-right:auto; }
+  .contact-row{
+    margin-top:48px;
+    display:flex; justify-content:center; flex-wrap:wrap; gap:14px;
+  }
+  .contact-row a{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem;
+    color:#F2ECDD; text-decoration:none;
+    padding:13px 22px;
+    border:1px solid var(--line-deep);
+    border-radius:100px;
+    transition:border-color 0.25s, background 0.25s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .contact-row a:hover, .contact-row a:focus-visible{ border-color:var(--gold-soft); background:rgba(233,201,139,0.08); }
+  .contact-row a.primary{ background:var(--gold-soft); color:var(--deep); border-color:var(--gold-soft); font-weight:600; }
+  .contact-row a.primary:hover{ background:#F0DCA9; }
+  footer{ text-align:center; padding:26px; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--line-deep); background:var(--deep); }
+
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <div class="nav-name" id="navName"></div>
+  <div class="nav-links" id="navLinks"></div>
+</nav>
+
+<header class="hero" id="hero"></header>
+
+<section class="intro" id="introSection"></section>
+
+<section class="timeline-section" id="timelineSection"></section>
+
+<section class="cycle-band" id="cycleBand"></section>
+
+<section class="thread-section" id="threadSection">
+  <div class="thread-line"><div class="thread-line-fill" id="threadFill"></div></div>
+  <div id="stagesContainer"></div>
+</section>
+
+<section class="closing" id="closingSection"></section>
+
+<footer id="footerText"></footer>
+
+<script>
+const esc = (s) => String(s == null ? '' : s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function render(data){
+  document.title = 'Daiana Fraiman · People & Talent Portfolio';
+
+  // NAV
+  document.getElementById('navName').textContent = data.hero.nameLine1 + ' ' + data.hero.nameLine2;
+  document.getElementById('navLinks').innerHTML =
+    data.stages.map(s => `<a href="#${esc(s.id)}">${esc(s.navLabel)}</a>`).join('') +
+    `<a href="#contacto">Contacto</a>`;
+
+  // HERO
+  document.getElementById('hero').innerHTML = `
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow"><span class="dot"></span>${esc(data.hero.eyebrow)}</div>
+        <h1>${esc(data.hero.nameLine1)}<br>${esc(data.hero.nameLine2)}</h1>
+        <p class="hero-role">${esc(data.hero.role)}</p>
+        <div class="hero-tags">${data.hero.tags.map(t => `<span>${esc(t)}</span>`).join('')}</div>
+      </div>
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="${esc(data.hero.photo)}" alt="Retrato de ${esc(data.hero.nameLine1)} ${esc(data.hero.nameLine2)}">
+        <div class="hero-photo-frame"></div>
+      </div>
+    </div>
+    <div class="scroll-cue"><span>${esc(data.hero.scrollLabel)}</span><div class="line"></div></div>
+  `;
+
+  // ABOUT / INTRO
+  document.getElementById('introSection').innerHTML = `
+    <div class="wrap" style="display:contents;">
+      <div><div class="eyebrow">${esc(data.about.eyebrow)}</div></div>
+      <div>
+        <h2>${esc(data.about.heading)}</h2>
+        ${data.about.paragraphs.map(p => `<p>${esc(p)}</p>`).join('')}
+      </div>
+    </div>
+  `;
+
+  // TIMELINE
+  const tItem = (it, isEdu) => `
+    <div class="t-item ${isEdu ? 'edu' : ''}">
+      <div class="t-date-row"><span class="t-dot"></span>${it.date ? `<span class="t-date">${esc(it.date)}</span>` : ''}</div>
+      <div class="t-role">${esc(it.role)}</div>
+      <div class="t-org">${it.link ? `<a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.org)}</a>` : esc(it.org)}</div>
+    </div>`;
+  document.getElementById('timelineSection').innerHTML = `
+    <div class="wrap">
+      <div class="timeline-head">
+        <div class="eyebrow">${esc(data.timeline.eyebrow)}</div>
+        <h2>${esc(data.timeline.heading)}</h2>
+      </div>
+      <span class="cert-label" style="margin-top:0;">${esc(data.timeline.educationLabel)}</span>
+      <div class="timeline-track"><div class="timeline-row">
+        ${data.timeline.education.map(it => tItem(it, true)).join('')}
+      </div></div>
+      <span class="cert-label" style="margin-top:56px;">${esc(data.timeline.experienceLabel)}</span>
+      <div class="timeline-track"><div class="timeline-row">
+        ${data.timeline.experience.map(it => tItem(it, false)).join('')}
+      </div></div>
+    </div>
+  `;
+
+  // CYCLE BAND
+  document.getElementById('cycleBand').innerHTML = `
+    <div class="eyebrow">${esc(data.cycle.eyebrow)}</div>
+    <h2>${esc(data.cycle.heading)}</h2>
+    <p>${esc(data.cycle.paragraph)}</p>
+    <div class="cycle-nav">
+      ${data.stages.map(s => `<a href="#${esc(s.id)}"><span class="n">${esc(s.number)}</span> ${esc(s.navLabel)}</a>`).join('')}
+    </div>
+  `;
+
+  // STAGES
+  document.getElementById('stagesContainer').innerHTML = data.stages.map(s => {
+    let extra = '';
+    if (s.highlight) {
+      extra += `
+        <div class="highlight-card">
+          <div class="highlight-num">${esc(s.highlight.num)}<small>${esc(s.highlight.label)}</small></div>
+          <p>${esc(s.highlight.text)} ${s.highlight.boldText ? `<strong>${esc(s.highlight.boldText)}</strong>` : ''}</p>
+        </div>`;
+    }
+    if (s.photos && s.photos.length) {
+      extra += `
+        <div class="photo-grid" style="grid-template-columns:repeat(2,1fr);">
+          ${s.photos.map(p => `
+            <figure class="photo-card">
+              <img src="${esc(p.src)}" alt="${esc(p.alt)}">
+              <figcaption>${esc(p.caption)}</figcaption>
+            </figure>`).join('')}
+        </div>`;
+    }
+    if (s.note) {
+      extra += `<p class="stage-note">${esc(s.note)}</p>`;
+    }
+    if (s.tools && s.tools.length) {
+      extra += `<div class="tool-row">${s.tools.map(t => `<span>${esc(t)}</span>`).join('')}</div>`;
+    }
+    return `
+      <div class="stage" id="${esc(s.id)}" data-stage>
+        <div class="stage-node">${esc(s.number)}</div>
+        <div class="stage-content">
+          <div class="stage-eyebrow"><span class="eyebrow">Etapa ${esc(s.number)}</span></div>
+          <h3>${esc(s.title)}</h3>
+          <p class="stage-sub">${esc(s.sub)}</p>
+          <ul class="stage-list">${s.list.map(li => `<li>${esc(li)}</li>`).join('')}</ul>
+          ${extra}
+        </div>
+      </div>`;
+  }).join('');
+
+  // CLOSING
+  document.getElementById('closingSection').innerHTML = `
+    <div class="closing-inner">
+      <div class="eyebrow">${esc(data.closing.eyebrow)}</div>
+      <h2>${data.closing.heading}</h2>
+      <p>${esc(data.closing.paragraph)}</p>
+      <div class="contact-row">
+        ${data.closing.contacts.map(c => `<a class="${c.primary ? 'primary' : ''}" href="${esc(c.href)}" ${c.href.startsWith('http') ? 'target="_blank" rel="noopener"' : ''}>${esc(c.label)}</a>`).join('')}
+      </div>
+    </div>
+  `;
+
+  // FOOTER
+  document.getElementById('footerText').textContent = data.footer;
+}
+
+function initInteractions(){
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) nav.classList.add('visible'); else nav.classList.remove('visible');
+  });
+
+  const threadFill = document.getElementById('threadFill');
+  const threadSection = document.querySelector('.thread-section');
+  const stages = document.querySelectorAll('[data-stage]');
+
+  function updateThread(){
+    const rect = threadSection.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = rect.height;
+    const scrolled = Math.min(Math.max(vh*0.5 - rect.top, 0), total);
+    const pct = total > 0 ? (scrolled/total)*100 : 0;
+    threadFill.style.height = pct + '%';
+  }
+  window.addEventListener('scroll', updateThread);
+  window.addEventListener('resize', updateThread);
+  updateThread();
+
+  const io = (typeof IntersectionObserver !== 'undefined') ? new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('active'); }
+    });
+  }, {threshold:0.35}) : null;
+  if (io) stages.forEach(s=>io.observe(s));
+}
+
+fetch('content.json?_=' + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    render(data);
+    try { initInteractions(); } catch(e) { console.error('Interacciones (scroll/animación) fallaron:', e); }
+  })
+  .catch(err => {
+    document.body.innerHTML = '<p style="padding:40px;font-family:sans-serif;">No se pudo cargar el contenido (content.json). ' + err + '</p>';
+  });
+</script>
+
+</body>
+</html>
