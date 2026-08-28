@@ -1,0 +1,156 @@
+{
+  "hero": {
+    "eyebrow": "People & Talent · Buenos Aires, Argentina",
+    "nameLine1": "Daiana",
+    "nameLine2": "Fraiman",
+    "role": "Construyo el vínculo entre las personas y el negocio: procesos que retienen, líderes que confían y equipos que encuentran en el trabajo un lugar para crecer.",
+    "tags": ["Talent Acquisition", "Employee Experience", "People Ops", "Performance & Desarrollo"],
+    "photo": "images/hero.jpg",
+    "scrollLabel": "Recorrer"
+  },
+  "about": {
+    "eyebrow": "Sobre mí",
+    "heading": "Creo en el poder de la escucha activa para transformar la manera en que vivimos nuestro trabajo.",
+    "paragraphs": [
+      "Pasamos gran parte de la vida en el trabajo. Mi motor es que ese tiempo valga la pena. Elegí dedicarme a People, porque me motiva que cada persona encuentre un espacio donde sentirse desafiada, donde pueda aprender, dar lo mejor de sí, y también, simplemente, pasarla bien.",
+      "Sostener eso en el tiempo no es solo cuestión de buena voluntad: requiere procesos pensados de punta a punta, presencia constante junto a los líderes, y la capacidad de traducir necesidades de negocio en decisiones, orientadas a las personas.",
+      "Eso es lo que vengo construyendo en cada rol que ocupé, y lo que hoy quiero seguir potenciando."
+    ]
+  },
+  "timeline": {
+    "eyebrow": "Recorrido",
+    "heading": "Formación & experiencia",
+    "educationLabel": "Formación académica",
+    "experienceLabel": "Trayectoria profesional",
+    "education": [
+      { "date": "", "role": "Analista en Relaciones del Trabajo", "org": "Universidad de Buenos Aires (UBA)", "link": "" },
+      { "date": "2026", "role": "AI para RRHH", "org": "RecursosHumanos.com", "link": "" },
+      { "date": "2024", "role": "Project Management Bootcamp", "org": "UCEMA", "link": "" },
+      { "date": "2023", "role": "Certificación NewHR", "org": "ADRHA", "link": "" },
+      { "date": "2023", "role": "Learnability", "org": "UCEMA", "link": "" },
+      { "date": "2022", "role": "Power BI para HR", "org": "Hache Consultora", "link": "" },
+      { "date": "2021", "role": "HR Bootcamp", "org": "Academia Humanos Reales", "link": "" },
+      { "date": "2017 – 2018", "role": "IT Recruiting", "org": "Conexión HR / Capacitarte", "link": "" }
+    ],
+    "experience": [
+      { "date": "Mar 2026 – actualidad", "role": "People & Talent Coordinator", "org": "Tekne", "link": "https://digitaltekne.com" },
+      { "date": "Jun 2024 – Dic 2025", "role": "Talent Manager Specialist & HRBP", "org": "Punto Rojo", "link": "https://puntorojo.com" },
+      { "date": "Jul 2019 – Feb 2024", "role": "Senior HR Coordinator", "org": "Open English Argentina", "link": "https://www.openenglish.com" },
+      { "date": "Jun 2017 – Jul 2019", "role": "HR Analyst & Office Assistant", "org": "Open English Argentina", "link": "https://www.openenglish.com" },
+      { "date": "Jun 2013 – Abr 2017", "role": "Administrativa Nivel Inicial", "org": "Natan Gesang · Escuela Internacional", "link": "https://www.natangesang.edu.ar" },
+      { "date": "Mar 2010 – Dic 2015", "role": "Líder en Educación No Formal", "org": "OHA Macabi", "link": "https://macabi.org.ar" }
+    ]
+  },
+  "cycle": {
+    "eyebrow": "Cómo trabajo",
+    "heading": "El ciclo de vida del colaborador, de punta a punta",
+    "paragraph": "No pienso mi rol, como partes aisladas. Cada etapa habilita a la siguiente, y sostenerlas de forma integral, es lo que me permite acompañar tanto a las personas como al negocio."
+  },
+  "stages": [
+    {
+      "id": "atraccion",
+      "number": "01",
+      "navLabel": "Atracción",
+      "title": "Atracción & Selección",
+      "sub": "Procesos de reclutamiento end-to-end, alineados a las necesidades reales del negocio: no solo a cubrir una vacante.",
+      "list": [
+        "Relevamiento de perfil, entrevistas, oferta e ingreso a onboarding",
+        "Alineación con directores y hiring managers sobre las necesidades reales de cada búsqueda",
+        "IT Recruiting y búsqueda de perfiles técnicos en contextos de alta demanda, perfiles de marketing, publicidad y comunicación",
+        "Gestión de pipeline y ATS (Airtable, ClickUp, Notion)",
+        "Diseño de procesos de selección adaptados al tamaño y etapa de cada equipo"
+      ],
+      "highlight": {
+        "num": "17→60",
+        "label": "personas · Open English",
+        "text": "Construí gran parte del equipo que acompañé durante casi siete años en Open English, en un contexto de alta demanda de talento tech senior. Al día de hoy, muchos siguen ahí.",
+        "boldText": "Ese engagement es, para mí, la métrica que más orgullo me da."
+      }
+    },
+    {
+      "id": "onboarding",
+      "number": "02",
+      "navLabel": "Onboarding",
+      "title": "Onboarding",
+      "sub": "Más de siete años acompañando primeros meses de ilusión y aprendizaje, adaptando la experiencia a entornos presenciales o virtuales.",
+      "list": [
+        "Diseño y liderazgo de procesos de onboarding end-to-end",
+        "Adaptación a equipos remotos y distribuidos (Argentina, Brasil, México)",
+        "Rediseño completo del proceso para sostenerlo 100% remoto durante la pandemia",
+        "Seguimiento cercano en las primeras semanas, integrado con performance y cultura"
+      ]
+    },
+    {
+      "id": "desarrollo",
+      "number": "03",
+      "navLabel": "Desarrollo",
+      "title": "Desarrollo & Performance",
+      "sub": "Evaluar no alcanza si no se traduce en un plan concreto de crecimiento. Diseño el proceso completo: de la pregunta correcta al plan de acción.",
+      "list": [
+        "Diseño de preguntas de evaluación de desempeño atadas a competencias por rol",
+        "Paths de capacitación personalizados según resultados (Crehana)",
+        "Cruce de datos de eNPS para priorizar oportunidades de mejora y refinar el ciclo siguiente",
+        "Evolución de ciclos de evaluación anuales a procesos de feedback continuo",
+        "Acompañamiento a líderes para incorporar una cultura real de feedback"
+      ]
+    },
+    {
+      "id": "cultura",
+      "number": "04",
+      "navLabel": "Cultura",
+      "title": "Cultura, Comunicación & Employee Experience",
+      "sub": "La cultura no se decreta. Se trabaja con comunicación constante y espacios reales de encuentro.",
+      "list": [
+        "Redefinición de espacios de comunicación interna global (Slack, BambooHR, creación de Wiki interna) para equipos locales y globales",
+        "Medición de clima laboral y eNPS",
+        "Organización y participación en eventos, team building y encuentros de equipo",
+        "Iniciativas de engagement y bienestar"
+      ],
+      "photos": [
+        { "src": "images/culture-1.jpg", "alt": "Merchandising y agasajo por los 15 años de Open English", "caption": "Open English · 15 años. Formé parte de la organización del festejo." },
+        { "src": "images/culture-2.jpg", "alt": "Equipo de Punto Rojo en el escenario del SEO Day", "caption": "Punto Rojo · SEO Day. Acompañando al CEO, CMO y directores en la organización del evento." },
+        { "src": "images/culture-3.jpg", "alt": "Equipo de Punto Rojo en Conversion Day", "caption": "Punto Rojo · Conversion Day. Colaboré de cerca con directores en el streaming oficial del evento." },
+        { "src": "images/culture-4.jpg", "alt": "Encuentro de equipo en un asado de Tekne", "caption": "Tekne · asado con el equipo, parte de sostener la cultura y el encuentro en el día a día." }
+      ]
+    },
+    {
+      "id": "cierre",
+      "number": "05",
+      "navLabel": "Transición",
+      "title": "Transición",
+      "sub": "El final de una relación laboral también se acompaña, y es una fuente de información valiosa para todo lo anterior.",
+      "list": [
+        "Acompañamiento de la persona en su salida",
+        "Encuesta de feedback de salida para capturar datos honestos sobre su experiencia",
+        "Apoyo con los próximos pasos para cerrar la relación de la mejor manera posible"
+      ],
+      "note": "El cierre de un vínculo laboral dice tanto de la cultura de una empresa como su comienzo, y aporta información honesta que alimenta decisiones posteriores de atracción, onboarding y desarrollo."
+    },
+    {
+      "id": "operaciones",
+      "number": "06",
+      "navLabel": "People Ops",
+      "title": "People Ops & Systems",
+      "sub": "Lo que sostiene todo lo anterior: sistemas bien administrados, procesos documentados y datos confiables.",
+      "list": [
+        "Administración de BambooHR (Performance, Goals y Time Off)",
+        "Implementación del módulo de Time Off automatizado, reduciendo tiempos operativos",
+        "Gestión de documentación y ATS (Airtable, ClickUp)",
+        "Coordinación de nómina y administración general"
+      ],
+      "tools": ["BambooHR", "ClickUp", "Airtable (ATS)", "Slack", "Power BI", "Google Workspace", "Crehana"],
+      "photos": []
+    }
+  ],
+  "closing": {
+    "eyebrow": "Mirando hacia adelante",
+    "heading": "Sigamos construyendo esto <em>juntos</em>.",
+    "paragraph": "Sostener el employee journey del colaborador me enseñó a entender al mismo tiempo lo que necesitan las personas y lo que necesita el negocio. Ese es el valor que me encantaría seguir aportando, acompañando de cerca a líderes y equipos en mi próximo desafío.",
+    "contacts": [
+      { "label": "✉ daiufrai@gmail.com", "href": "mailto:daiufrai@gmail.com", "primary": true },
+      { "label": "in/dfraiman", "href": "https://www.linkedin.com/in/dfraiman", "primary": false },
+      { "label": "+54 9 11 6747-1934", "href": "tel:+5491167471934", "primary": false }
+    ]
+  },
+  "footer": "Daiana Fraiman · People & Talent Portfolio · Buenos Aires, Argentina · 2026"
+}
